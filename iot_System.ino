@@ -98,3 +98,5 @@ else{
 }
  }
 }
+// Thank you for using this firmware
+most requirement of loRa is Wifi
