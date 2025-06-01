@@ -1,3 +1,7 @@
+/*
+  Author : "leogad"
+  email: "hakizimanaleogad@gmail.com"
+*/
 #include<DHT.h>
 #include<LiquidCrystal_I2C.h>
 #include<FirebaseESP8266.h>
@@ -6,8 +10,8 @@
 #define url ""
 #define TOKEN "" 
 LiquidCrystal_I2C lcd(0x27,16,2);
-DHT dht(11,11);
-String wifi ="EdNet";
+DHT dht(11,11);// you can use own  base on your choice
+String wifi ="EdNet";// can be modified
 String pass ="Hauwei@123";
 FirebaseAuth auth;
 FirebaseData data;
