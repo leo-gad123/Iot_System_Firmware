@@ -23,13 +23,18 @@ int led =13;
 DIYables_IRcontroller_17 ir(12,200);
 void setup(){
  
-  Serial.begin(96000);
+  Serial.begin(115200);
   WiFi.begin(wifi,pass);
   while(WiFi.status() != WL_CONNECTED){
     Serial.print(".");
+    delay(1000);
   }
   Serial.print("Wifi connected");
-  fireBaseInit();
+ 
+  config.host=url;
+  config.signer.tokens.legacy_token=TOKEN;
+  Firebase.begin(&config, &auth);
+ 
   ir.begin();
   pinMode(led,OUTPUT);
   dht.begin();
@@ -38,13 +43,6 @@ void setup(){
   delay(3000);
   lcd.clear();
 }
-
-void fireBaseInit(){
-  config.host=url;
-  config.signer.tokens.legacy_token=TOKEN;
-  Firebase.begin(&config, &auth);
-}
-
 void loop(){
    Key17 key=ir.getKey();
   interNet();
@@ -71,7 +69,7 @@ void displayOff(){
 }
 
 void interNet(){
-   while(WiFi.status() == WL_CONNECTED){
+   if(WiFi.status() == WL_CONNECTED){
 if(Firebase.getString(data,"/status")){
   String value=data.stringData();
   if(value=="true"){
@@ -96,7 +94,9 @@ if(Firebase.setFloat(data,"/Humidity: ",dht.readHumidity())){
 else{
   Serial.print("Error 🼴🼴 🼴🼴🼴🼴 🼴🼴🼴 🼴🼴🼴");
 }
- }
+ }else
+    Serial.print("nework failed");
+    delay(1000);
 }
 // Thank you for using this firmware
-most requirement of loRa is Wifi
+//most requirement of loRa is Wifi
