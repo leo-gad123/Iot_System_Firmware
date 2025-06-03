@@ -46,7 +46,11 @@ void setup(){
 void loop(){
    Key17 key=ir.getKey();
   interNet();
- if(key!=Key17::NONE){
+
+displayOff();
+}
+void remmote(Key17 key){
+  if(key!=Key17::NONE){
   switch(key){
      case Key17::KEY_OK:
      bool value = (key==Key17::KEY_OK)?1:0;
@@ -54,9 +58,7 @@ void loop(){
      break;
   }
  }
-displayOff();
 }
-
 void displayOff(){
  lcd.print("ꄣTemp:");
  lcd.print(dht.readTemperature());
